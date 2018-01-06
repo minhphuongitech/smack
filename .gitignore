@@ -1,0 +1,31 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+
+*~
+*#
+*.bak
+*.iml
+/*/build/
+/*/.idea/
+/.idea/
+
+
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+/*/bin/
+/*/gen/
+/*/obj/
+/gen/
