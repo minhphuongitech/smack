@@ -12,7 +12,6 @@ import com.android.volley.toolbox.Volley
 import com.pvsoft.smack.Utilities.*
 import org.json.JSONException
 import org.json.JSONObject
-import java.lang.reflect.Method
 
 /**
  * Created by minhp on 1/11/2018.

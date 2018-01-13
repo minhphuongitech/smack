@@ -5,6 +5,7 @@ package com.pvsoft.smack.Utilities
  */
 
 const val BASE_URL = "https://chatpvsoft.herokuapp.com/v1/"
+const val SOCKET_URL = "https://chatpvsoft.herokuapp.com/"
 //const val BASE_URL = "http://localhost:3005/v1/"
 //const val BASE_URL = "http://127.0.0.1:3005/v1/"  // Ip này chỉ dùng trên máy tính, trên emulator thì chuyển sang 10.0.2.2
 //const val BASE_URL = "http://10.0.0.2:3005/v1/"

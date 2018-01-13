@@ -11,15 +11,24 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.EditText
+import com.pvsoft.smack.Models.Channel
 import com.pvsoft.smack.R
 import com.pvsoft.smack.Services.AuthService
+import com.pvsoft.smack.Services.MessageService
+import com.pvsoft.smack.Utilities.AppUtils
 import com.pvsoft.smack.Utilities.BROADCAST_DATA_USER_CHANGE
-import com.pvsoft.smack.Utilities.UserDataService
+import com.pvsoft.smack.Utilities.SOCKET_URL
+import com.pvsoft.smack.Services.UserDataService
+import io.socket.client.IO
+import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    val socket = IO.socket(SOCKET_URL)
 
     private val userDataChangeBroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
@@ -34,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -43,8 +53,35 @@ class MainActivity : AppCompatActivity() {
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
+        socket.connect()
+        socket.on("channelCreated", onNewChannel)
+    }
 
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+    }
+
+    override fun onResume() {
+        super.onResume()
         LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeBroadcastReceiver, IntentFilter(BROADCAST_DATA_USER_CHANGE))
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(userDataChangeBroadcastReceiver)
+        socket.disconnect()
     }
 
     override fun onBackPressed() {
@@ -56,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun loginBtnClicked(view: View) {
-        if(AuthService.isLoggedIn) {
+        if (AuthService.isLoggedIn) {
             UserDataService.logout()
             emailNavHeader.text = ""
             usernameNavHeader.text = ""
@@ -75,6 +112,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addChannelBtnClicked(view: View) {
+        if (AuthService.isLoggedIn) {
+            AppUtils.showAlertDialog(this, this, "Add", "Cancel") { isPositiveButton, dialogView ->
+                if (isPositiveButton) {
+                    val channelName = dialogView.findViewById<EditText>(R.id.channelNameEdt).text.toString()
+                    val channelDesc = dialogView.findViewById<EditText>(R.id.channelDescEdt).text.toString()
+                    socket.emit("newChannel", channelName, channelDesc)
+                } else {
 
+                }
+                AppUtils.hideKeyboard(this, this)
+            }
+        } else {
+
+        }
+    }
+
+    private val onNewChannel = Emitter.Listener { args ->
+        runOnUiThread {
+            val channelName = args[0] as String
+            val channelDescription = args[1] as String
+            val channelId = args[2] as String
+
+            val newChannel = Channel(channelName, channelDescription, channelId)
+            MessageService.channels.add(newChannel)
+
+        }
     }
 }

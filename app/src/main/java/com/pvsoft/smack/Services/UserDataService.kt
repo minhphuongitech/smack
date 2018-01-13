@@ -1,7 +1,6 @@
-package com.pvsoft.smack.Utilities
+package com.pvsoft.smack.Services
 
 import android.graphics.Color
-import com.pvsoft.smack.Services.AuthService
 import java.util.*
 
 /**
