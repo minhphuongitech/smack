@@ -1,6 +1,8 @@
 package com.pvsoft.smack.Services
 
 import android.content.Context
+import android.content.Intent
+import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
 import com.android.volley.Request
 import com.android.volley.Response
@@ -138,6 +140,37 @@ object AuthService {
         }
 
         Volley.newRequestQueue(context).add(createUserRequest)
+    }
+
+    fun findUserByEmail(context: Context, complete:(Boolean) -> Unit) {
+        val url = URL_GET_USER
+        val findUserRequest = object :JsonObjectRequest(Method.GET, url + "$userEmail", null,
+                Response.Listener {
+                    response ->
+                    try {
+                        UserDataService.id = response.getString("_id")
+                        UserDataService.name = response.getString("name")
+                        UserDataService.email = response.getString("email")
+                        UserDataService.avatarColor = response.getString("avatarColor")
+                        UserDataService.avatarName = response.getString("avatarName")
+                        LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(BROADCAST_DATA_USER_CHANGE))
+                        complete(true)
+                    } catch (ex: JSONException) {
+                        Log.d(TAG, "FIND USER BY EMAIL EXCEPTION : ${ex.localizedMessage}")
+                        complete(false)
+                    }
+                },
+                Response.ErrorListener {
+                    error ->
+                    Log.d(TAG, "FIND USER BY EMAIL ERROR: ${error}")
+                    complete(false)
+                }) {
+            override fun getHeaders(): MutableMap<String, String> {
+                return getHeadersOfAuthService()
+            }
+        }
+
+        Volley.newRequestQueue(context).add(findUserRequest)
     }
 
 }

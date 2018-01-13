@@ -7,7 +7,7 @@
     tools:context="com.pvsoft.smack.Controller.LoginActivity">
 
     <EditText
-        android:id="@+id/usernameEdt"
+        android:id="@+id/emailEdt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/emailEdt"
+        android:id="@+id/passwordEdt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -31,19 +31,21 @@
         android:hint="password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameEdt" />
+        app:layout_constraintTop_toBottomOf="@+id/emailEdt" />
 
     <Button
         android:id="@+id/loginAccountBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="64dp"
         android:background="@color/colorPrimary"
         android:onClick="loginBtnClicked"
         android:text="LOGIN"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="@+id/emailEdt"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/emailEdt"
         app:layout_constraintTop_toBottomOf="@+id/emailEdt" />
 
