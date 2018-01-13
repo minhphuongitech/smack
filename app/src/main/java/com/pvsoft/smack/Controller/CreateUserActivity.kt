@@ -10,6 +10,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.pvsoft.smack.R
 import com.pvsoft.smack.Services.AuthService
+import com.pvsoft.smack.Utilities.AppUtils
 import com.pvsoft.smack.Utilities.BROADCAST_DATA_USER_CHANGE
 import kotlinx.android.synthetic.main.activity_create_user.*
 import java.util.*
@@ -69,26 +70,24 @@ class CreateUserActivity : AppCompatActivity() {
                                     enableSpinner(false)
                                     finish()
                                 } else {
-                                    errorToast("Create user has something went wrong, please try again.")
+                                    AppUtils.errorToast(this,"Create user has something went wrong, please try again.")
+                                    enableSpinner(false)
                                 }
                             }
                         } else {
-                            errorToast("Login has something went wrong, please try again.")
+                            AppUtils.errorToast(this,"Login has something went wrong, please try again.")
+                            enableSpinner(false)
                         }
                     }
                 } else {
-                    errorToast("Register has something went wrong, please try again.")
+                    AppUtils.errorToast(this,"Register has something went wrong, please try again.")
+                    enableSpinner(false)
                 }
             }
         } else {
-            Toast.makeText(this, "Make sure Username, email and password are filled in.", Toast.LENGTH_SHORT).show()
+            AppUtils.errorToast(this,"Make sure Username, email and password are filled in.")
             enableSpinner(false)
         }
-    }
-
-    fun errorToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-        enableSpinner(false)
     }
 
     fun enableSpinner(enable: Boolean) {
@@ -98,7 +97,7 @@ class CreateUserActivity : AppCompatActivity() {
             createUserProgressSpinner.visibility = ProgressBar.INVISIBLE
         }
 
-        loginAccountBtn.isEnabled = !enable
+        createUserAccountBtn.isEnabled = !enable
         generateBackgroundColorBtn.isEnabled = !enable
         userAvatarImg.isEnabled = !enable
 

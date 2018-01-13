@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emailEdt" />
 
     <Button
-        android:id="@+id/loginAccountBtn"
+        android:id="@+id/createUserAccountBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -71,8 +71,8 @@
         android:onClick="generateBackgroundColorBtnClicked"
         android:text="GENERATE BACKGROUND COLOR"
         android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="@+id/loginAccountBtn"
-        app:layout_constraintStart_toStartOf="@+id/loginAccountBtn"
+        app:layout_constraintEnd_toEndOf="@+id/createUserAccountBtn"
+        app:layout_constraintStart_toStartOf="@+id/createUserAccountBtn"
         app:layout_constraintTop_toBottomOf="@+id/userAvatarImg" />
 
     <TextView

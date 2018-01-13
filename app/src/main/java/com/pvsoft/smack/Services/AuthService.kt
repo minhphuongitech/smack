@@ -165,6 +165,11 @@ object AuthService {
                     Log.d(TAG, "FIND USER BY EMAIL ERROR: ${error}")
                     complete(false)
                 }) {
+
+            override fun getBodyContentType(): String {
+                return getBodyContentTypeOfAuthService()
+            }
+
             override fun getHeaders(): MutableMap<String, String> {
                 return getHeadersOfAuthService()
             }
