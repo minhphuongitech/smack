@@ -1,0 +1,13 @@
+﻿Atom (Tool để mở project mac-chat-api chạy ngôn ngữ Nodejs)
+Nodejs 
+Postman
+MongoDB
+RoboMango (Tạo kết nối)
+Lệnh npm hình như là của MongoDB
+
+https://www.youtube.com/watch?v=1uFY60CESlM
+cd .. (Lùi thư mục)
+cd "D:\Project\Workspace_Project\smack" (chuyển sang thư mục này)
+mkdir \data\db (tạo thư mục)
+
+thêm biến môi trường là mục đích có thể gọi trực tiếp ở CMD mà ko cần đi vào thư mục trước ở trên cmd

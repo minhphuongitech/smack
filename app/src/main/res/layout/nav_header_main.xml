@@ -11,7 +11,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/userAvatarNavHeaderImg"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginBottom="16dp"
@@ -28,23 +28,24 @@
         android:id="@+id/usernameNavHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Minh Phuong"
+        tools:text="Minh Phuong"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintStart_toEndOf="@+id/userAvatarNavHeaderImg"
+        app:layout_constraintTop_toTopOf="@+id/userAvatarNavHeaderImg" />
 
     <TextView
         android:id="@+id/emailNavHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:text="minhphuongitech@gmail.com"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/usernameNavHeader" />
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/usernameNavHeader"
+        app:layout_constraintTop_toBottomOf="@+id/usernameNavHeader"
+        tools:text="minhphuongitech@gmail.com" />
 
     <Button
         android:id="@+id/loginBtnNavHeader"
@@ -58,7 +59,7 @@
         android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/userAvatarImg"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton

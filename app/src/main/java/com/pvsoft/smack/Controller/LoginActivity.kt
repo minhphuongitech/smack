@@ -1,9 +1,10 @@
-package com.pvsoft.smack
+package com.pvsoft.smack.Controller
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.pvsoft.smack.R
 
 class LoginActivity : AppCompatActivity() {
 
@@ -15,5 +16,6 @@ class LoginActivity : AppCompatActivity() {
     fun signupBtnClicked(view: View) {
         val createAccountIntent = Intent(this, CreateUserActivity::class.java)
         startActivity(createAccountIntent)
+        finish()
     }
 }
