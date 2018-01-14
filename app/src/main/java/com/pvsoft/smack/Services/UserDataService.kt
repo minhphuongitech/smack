@@ -1,6 +1,7 @@
 package com.pvsoft.smack.Services
 
 import android.graphics.Color
+import com.pvsoft.smack.Controller.App
 import java.util.*
 
 /**
@@ -19,9 +20,13 @@ object UserDataService {
         avatarName = ""
         email = ""
         name = ""
-        AuthService.authToken = ""
-        AuthService.isLoggedIn = false
-        AuthService.userEmail = ""
+//        AuthService.authToken = ""
+//        AuthService.isLoggedIn = false
+//        AuthService.userEmail = ""
+
+        App.prefs.token = ""
+        App.prefs.isLoggedIn = false
+        App.prefs.email = ""
     }
 
     fun returnAvatarColor(components: String): Int {

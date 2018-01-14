@@ -9,6 +9,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.pvsoft.smack.Controller.App
 import com.pvsoft.smack.Utilities.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -18,17 +19,18 @@ import org.json.JSONObject
  */
 object AuthService {
     val TAG: String = "AuthService"
-    var isLoggedIn = false
-    var userEmail = ""
-    var authToken = ""
+//    var isLoggedIn = false
+//    var userEmail = ""
+//    var authToken = ""
 
     fun getBodyContentTypeOfAuthService(): String {
         return "application/json; charset=utf-8"
     }
 
-    fun getHeadersOfAuthService(): MutableMap<String, String>{
+    fun getHeadersOfAuthService(): MutableMap<String, String> {
         val headers: HashMap<String, String> = HashMap()
-        headers.put("Authorization", "Bearer ${authToken}")
+//        headers.put("Authorization", "Bearer ${authToken}")
+        headers.put("Authorization", "Bearer ${App.prefs.token}")
         return headers
     }
 
@@ -72,9 +74,13 @@ object AuthService {
                 Response.Listener { response ->
                     Log.d(TAG, "LOGIN ACCOUNT RESPONSE :${response}")
                     try {
-                        userEmail = response.getString("user")
-                        authToken = response.getString("token")
-                        isLoggedIn = true
+//                        userEmail = response.getString("user")
+//                        authToken = response.getString("token")
+//                        isLoggedIn = true
+
+                        App.prefs.email = response.getString("user")
+                        App.prefs.token = response.getString("token")
+                        App.prefs.isLoggedIn = true
                         complete(true)
                     } catch (e: JSONException) {
                         Log.d(TAG, "LOGIN ACCOUNT EXCEPTION : ${e.localizedMessage}")
@@ -141,11 +147,11 @@ object AuthService {
         Volley.newRequestQueue(context).add(createUserRequest)
     }
 
-    fun findUserByEmail(context: Context, complete:(Boolean) -> Unit) {
+    fun findUserByEmail(context: Context, complete: (Boolean) -> Unit) {
         val url = URL_GET_USER
-        val findUserRequest = object :JsonObjectRequest(Method.GET, url + "$userEmail", null,
-                Response.Listener {
-                    response ->
+//        val findUserRequest = object :JsonObjectRequest(Method.GET, url + "$userEmail", null,
+        val findUserRequest = object : JsonObjectRequest(Method.GET, url + "${App.prefs.email}", null,
+                Response.Listener { response ->
                     try {
                         UserDataService.id = response.getString("_id")
                         UserDataService.name = response.getString("name")
@@ -159,8 +165,7 @@ object AuthService {
                         complete(false)
                     }
                 },
-                Response.ErrorListener {
-                    error ->
+                Response.ErrorListener { error ->
                     Log.d(TAG, "FIND USER BY EMAIL ERROR: ${error}")
                     complete(false)
                 }) {
